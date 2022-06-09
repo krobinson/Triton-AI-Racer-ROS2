@@ -4,6 +4,18 @@
 [submodule "src/external/vesc"]
 	path = src/external/vesc
 	url = git@github.com:f1tenth/vesc.git
+	branch = ros2
 [submodule "src/external/transport_drivers"]
 	path = src/external/transport_drivers
 	url = git@github.com:ros-drivers/transport_drivers.git
+[submodule "src/external/ackermann_msgs"]
+	path = src/external/ackermann_msgs
+	url = git@github.com:ros-drivers/ackermann_msgs.git
+	branch = ros2
+[submodule "src/external/udp_msgs"]
+	path = src/external/udp_msgs
+	url = git@github.com:flynneva/udp_msgs.git
+[submodule "src/external/example_interfaces"]
+	path = src/external/example_interfaces
+	url = git@github.com:ros2/example_interfaces.git
+	branch = galactic

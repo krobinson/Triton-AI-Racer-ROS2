@@ -1,0 +1,10 @@
+# List of repositories to use within your workspace
+# See https://github.com/dirk-thomas/vcstool
+############ 
+# Example:
+############
+repositories:
+  tritonai_ros2_ws:
+    type: git
+    url: git@github.com:Triton-AI/Triton-AI-Racer-ROS2.git
+    version: main
