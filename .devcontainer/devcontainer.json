@@ -6,13 +6,15 @@
 			"WORKSPACE": "${containerWorkspaceFolder}"
 		}
 	},
+	"appPort": [ "7400:7400/udp", "7401:7401/udp", "7410:7410/udp", "7411:7411/udp", "7412:7412/udp" ],
 	"remoteUser": "ros",
 	"runArgs": [
 		"--network=host",
 		"--cap-add=SYS_PTRACE",
 		"--security-opt=seccomp:unconfined",
 		"--security-opt=apparmor:unconfined",
-		"--volume=/tmp/.X11-unix:/tmp/.X11-unix"
+		"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+		"--device=/dev/dri:/dev/dri"
 	],
 	"containerEnv": { "DISPLAY": "${localEnv:DISPLAY}" },
 	// Set *default* container specific settings.json values on container create.

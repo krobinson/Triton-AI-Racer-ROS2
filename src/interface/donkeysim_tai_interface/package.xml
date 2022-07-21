@@ -8,6 +8,7 @@
   <license>TODO: License declaration</license>
 
   <depend>tai_interface</depend>
+  <depend>gym_donkeycar</depend>
   <depend>python-numpy</depend>
   <depend>python-opencv</depend>
   <depend>cv_bridge</depend>
