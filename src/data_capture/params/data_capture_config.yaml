@@ -1,0 +1,10 @@
+/data_capture/log_node:
+  ros__parameters:
+    data_capture_logging_hz: 20
+    default_save_file_name: "image_and_control.json"
+
+
+    # Joystick
+    js_toggle_log_button: 0
+    js_terminate_log_button: 1
+    js_get_log_state_button: 2

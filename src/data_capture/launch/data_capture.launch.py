@@ -4,19 +4,19 @@ from launch_ros.actions import Node
 import os
 
 def generate_launch_description():
-    waypoint_config = os.path.join(
-        get_package_share_directory('waypoint_logger'), 
+    data_capture_config = os.path.join(
+        get_package_share_directory('data_capture'), 
         'params', 
-        'wp_logger_config.yaml'
+        'data_capture_config.yaml'
         )
     
     return LaunchDescription([
         Node(
-            package='waypoint_logger',
+            package='data_capture',
             namespace='waypoint',
-            executable='log_waypoints',
-            name='log_node',
-            parameters=[waypoint_config]           
+            executable='image_and_control',
+            name='data_capture',
+            parameters=[data_capture_config]           
         )
 
    ])
