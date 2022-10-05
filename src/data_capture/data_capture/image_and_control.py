@@ -26,8 +26,8 @@ class ImageAndControlLogging(Node):
         self.present_image = None
         self.present_control = None
 
-        self.image_sub = Subscriber(IMAGE_TOPIC, Image)
-        self.control_sub = Subscriber(CONTROL_TOPIC, VehicleControl)
+        self.image_sub = Subscriber(self, Image, IMAGE_TOPIC)
+        self.control_sub = Subscriber(self, VehicleControl, CONTROL_TOPIC)
         self.tss = ApproximateTimeSynchronizer([self.image_sub, self.control_sub], queue_size=10, slop=0.5)
         self.tss.registerCallback(self.print_topics)
         # Pubs N' Subs
@@ -66,7 +66,7 @@ class ImageAndControlLogging(Node):
 
 
 
-def main():
+def main(args=None):
     rclpy.init(args=args)
     node = ImageAndControlLogging()
     rclpy.spin(node)

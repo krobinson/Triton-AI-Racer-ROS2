@@ -1,6 +1,6 @@
 sim_config:
   scene_name: 'circuit_launch'
-  host: '192.168.113.1'
+  host: '192.168.0.219'
   port: 9091
   artificial_latency: 0
 
