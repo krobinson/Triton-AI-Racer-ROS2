@@ -3,7 +3,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Image
 from tai_interface.msg import VehicleControl
 from waypoint_interfaces.srv import TerminateWaypointLogging, ToggleWaypointLogging, GetWaypointLogState
-from rclpy.qos import qos_profile_sensor_data
+from rclpy.qos import QoSPresetProfiles
 from message_filters import ApproximateTimeSynchronizer
 from message_filters import Subscriber
 
@@ -16,27 +16,14 @@ class ImageAndControlLogging(Node):
     def __init__(self):
         super().__init__("image_and_control")
         self.declare_parameter('image_and_control_logging_hz', 20)
-        #self.declare_parameter('default_save_file_name', 'image_and_control')
-        #self.declare_parameter('js_terminate_log_button', 1)
-        #self.declare_parameter('js_get_log_state_button', 2)
-        #self.logging_hz_ = self.get_parameter(
-        #    "image_and_control_logging_hz").get_parameter_value().integer_value
-        #self.logger_ = WaypointLogger(self.logging_hz_, self)
-
+        
         self.present_image = None
         self.present_control = None
-
-        self.image_sub = Subscriber(self, Image, IMAGE_TOPIC)
-        self.control_sub = Subscriber(self, VehicleControl, CONTROL_TOPIC)
+        
+        self.image_sub = Subscriber(self, Image, IMAGE_TOPIC, SENSOR_DATA)
+        self.control_sub = Subscriber(self, VehicleControl, CONTROL_TOPIC, SENSOR_DATA)
         self.tss = ApproximateTimeSynchronizer([self.image_sub, self.control_sub], queue_size=10, slop=0.5)
         self.tss.registerCallback(self.print_topics)
-        # Pubs N' Subs
-        #self.odom_sub_ = self.create_subscription(
-        #    Odometry, "odom", self.odom_callback_, qos_profile_sensor_data)
-        #self.joy_sub_ = self.create_subscription(
-        #    Joy, "/joy", self.joy_callback_, 1)
-
-        # ROS parameters
         #self.default_file_name_ = self.get_parameter(
         #    "default_save_file_name").get_parameter_value().string_value
         #self.js_toggle_log_button_ = self.get_parameter(
