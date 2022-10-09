@@ -8,6 +8,7 @@
 	},
 	"appPort": [ "7400:7400/udp", "7401:7401/udp", "7410:7410/udp", "7411:7411/udp", "7412:7412/udp" ],
 	"remoteUser": "ros",
+	"containerUser": "ros",
 	"runArgs": [
 		"--network=host",
 		"--cap-add=SYS_PTRACE",
