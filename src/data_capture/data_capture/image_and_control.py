@@ -7,6 +7,8 @@ from rclpy.qos import QoSPresetProfiles
 from rclpy.qos import qos_profile_sensor_data
 from message_filters import ApproximateTimeSynchronizer
 from message_filters import Subscriber
+import rosbag2_py
+from rclpy.serialization import serialize_message
 
 from typing import Final
 
@@ -15,21 +17,33 @@ CONTROL_TOPIC: Final[str] = '/vehicle_cmd'
 
 class ImageAndControlLogging(Node):
     def __init__(self):
+        # Initialize Node
         super().__init__("image_and_control")
-        self.declare_parameter('image_and_control_logging_hz', 20)
-        
+
+        # Open a file to write the messages to
+        self.writer = rosbag2_py.SequentialWriter()
+        storage_options = rosbag2_py._storage.StorageOptions(
+            uri='image_and_control',
+            storage_id='sqlite3')
+        converter_options = rosbag2_py._storage.ConverterOptions('', '')
+        self.writer.open(storage_options, converter_options)        
+
+        # Keep the last image and control
         self.present_image = None
         self.present_control = None
         
+        # Subscribe to images and vehicle control to be saved so we can learn from them.
         self.image_sub = Subscriber(self, Image, IMAGE_TOPIC, qos_profile=qos_profile_sensor_data)
         self.control_sub = Subscriber(self, VehicleControl, CONTROL_TOPIC, qos_profile=qos_profile_sensor_data)
         self.tss = ApproximateTimeSynchronizer([self.image_sub, self.control_sub], queue_size=10, slop=0.5)
-        self.tss.registerCallback(self.print_topics)
+        self.tss.registerCallback(self.write_topics)
 
-    def print_topics(self, image: Image, control: VehicleControl):
-        self.present_image = image
-        self.present_control = control
-        print("New images have been collected.")
+    def write_topics(self, image_and_control):
+        self._logger.debug("received image and control" + image_and_control)
+        #self.writer.write(
+        #    'chatter',
+        #    serialize_message(image_and_control),
+        #    self.get_clock().now().nanoseconds)
 
 
 

@@ -10,6 +10,11 @@
         "label": "test",
         "type": "shell",
         "command": "colcon test && colcon test-result"
+      },
+      {
+        "label": "clean",
+        "type": "shell",
+        "command": "rm -r build install log"
       }
     ]
   }
