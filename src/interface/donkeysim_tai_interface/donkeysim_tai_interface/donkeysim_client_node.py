@@ -7,7 +7,7 @@ import math
 import ctypes
 import multiprocessing
 from multiprocessing import sharedctypes
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 import numpy as np
 
@@ -98,8 +98,10 @@ class DonkeysimClientNode(Node, TelemetryInterface):
         self._lidar_timer = self.create_timer(0.05, self._lidar_timer_callback)
 
     def image_callback(self, img):
+        # The image that is published has no timestemp
         img_msg = self.bridge.cv2_to_imgmsg(img[..., ::-1])
         img_msg.header.frame_id = 'camera_link'
+        img_msg.header.stamp = self.get_clock().now().to_msg()
         if self._img_pub:
             self._img_pub.publish(img_msg)
 

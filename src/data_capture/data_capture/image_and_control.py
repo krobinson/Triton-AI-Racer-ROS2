@@ -19,7 +19,7 @@ class ImageAndControlLogging(Node):
     def __init__(self):
         # Initialize Node
         super().__init__("image_and_control")
-
+        self._logger.info("started image and control")
         # Open a file to write the messages to
         self.writer = rosbag2_py.SequentialWriter()
         storage_options = rosbag2_py._storage.StorageOptions(
@@ -35,11 +35,11 @@ class ImageAndControlLogging(Node):
         # Subscribe to images and vehicle control to be saved so we can learn from them.
         self.image_sub = Subscriber(self, Image, IMAGE_TOPIC, qos_profile=qos_profile_sensor_data)
         self.control_sub = Subscriber(self, VehicleControl, CONTROL_TOPIC, qos_profile=qos_profile_sensor_data)
-        self.tss = ApproximateTimeSynchronizer([self.image_sub, self.control_sub], queue_size=10, slop=0.5)
+        self.tss = ApproximateTimeSynchronizer([self.image_sub, self.control_sub], queue_size=1000, slop=0.5)
         self.tss.registerCallback(self.write_topics)
 
     def write_topics(self, image_and_control):
-        self._logger.debug("received image and control" + image_and_control)
+        self._logger.info("received image and control" + image_and_control)
         #self.writer.write(
         #    'chatter',
         #    serialize_message(image_and_control),
