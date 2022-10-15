@@ -39,8 +39,7 @@ class ImageAndControlLogging(Node):
         self.tss.registerCallback(self.write_topics)
 
     def write_topics(self, image: Image, vehicle_control: VehicleControl):
-        self._logger.info("received image " + str(type(image)))
-        self._logger.info("received control " + str(type(vehicle_control)))
+        self._logger.info("received image " + str(type(image)) + ", received control " + str(type(vehicle_control)))
 
         #self.writer.write(
         #    'chatter',
