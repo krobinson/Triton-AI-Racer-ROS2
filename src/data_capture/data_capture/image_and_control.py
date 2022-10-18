@@ -1,10 +1,12 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
+from sensor_msgs.msg import TimeReference
 from tai_interface.msg import VehicleControl
 from waypoint_interfaces.srv import TerminateWaypointLogging, ToggleWaypointLogging, GetWaypointLogState
 from rclpy.qos import QoSPresetProfiles
 from rclpy.qos import qos_profile_sensor_data
+from rclpy.time import Time
 from message_filters import ApproximateTimeSynchronizer
 from message_filters import Subscriber
 import rosbag2_py
@@ -41,10 +43,18 @@ class ImageAndControlLogging(Node):
     def write_topics(self, image: Image, vehicle_control: VehicleControl):
         self._logger.info("received image " + str(type(image)) + ", received control " + str(type(vehicle_control)))
 
-        #self.writer.write(
-        #    'chatter',
-        #    serialize_message(image_and_control),
-        #    self.get_clock().now().nanoseconds)
+        time: Time = self.get_clock().now()
+
+        (seconds, nanoseconds) = time.seconds_nanoseconds
+
+        self.writer.write(
+            'image',
+            image,
+            time)
+        self.writer.write(
+            'control',
+            vehicle_control,
+            time)
 
 
 
