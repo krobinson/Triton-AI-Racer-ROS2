@@ -28,7 +28,19 @@ class ImageAndControlLogging(Node):
             uri='image_and_control',
             storage_id='sqlite3')
         converter_options = rosbag2_py._storage.ConverterOptions('', '')
-        self.writer.open(storage_options, converter_options)        
+        self.writer.open(storage_options, converter_options)
+
+        image_topic_info = rosbag2_py._storage.TopicMetadata(
+            name=IMAGE_TOPIC,
+            type='sensor_msgs/msg/Image',
+            serialization_format='cdr')
+        self.writer.create_topic(image_topic_info)
+
+        control_topic_info = rosbag2_py._storage.TopicMetadata(
+            name=CONTROL_TOPIC,
+            type='tai_interface/msg/VehicleControl',
+            serialization_format='cdr')
+        self.writer.create_topic(control_topic_info)        
 
         # Keep the last image and control
         self.present_image = None
@@ -45,16 +57,14 @@ class ImageAndControlLogging(Node):
 
         time: Time = self.get_clock().now()
 
-        (seconds, nanoseconds) = time.seconds_nanoseconds
-
         self.writer.write(
-            'image',
-            image,
-            time)
+            IMAGE_TOPIC,
+            serialize_message(image),
+            time.nanoseconds)
         self.writer.write(
-            'control',
-            vehicle_control,
-            time)
+            CONTROL_TOPIC,
+            serialize_message(vehicle_control),
+            time.nanoseconds)
 
 
 
