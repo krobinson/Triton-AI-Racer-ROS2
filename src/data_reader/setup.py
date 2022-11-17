@@ -2,7 +2,7 @@ from setuptools import setup
 import os
 from glob import glob
 
-package_name = 'data_read'
+package_name = 'data_reader'
 
 setup(
     name=package_name,
@@ -18,13 +18,13 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='ros',
-    maintainer_email='kenrobinsonster@gmail.com',
+    maintainer_email='kenrobinsonter@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'data_read = data_read.data_read_node:main'
+            'data_reader_node = data_reader.data_reader_node:main'
         ],
     },
 )

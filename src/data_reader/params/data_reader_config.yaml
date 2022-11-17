@@ -1,0 +1,3 @@
+/data_reader/log_node:
+  ros__parameters:
+    data_reader_logging_hz: 20

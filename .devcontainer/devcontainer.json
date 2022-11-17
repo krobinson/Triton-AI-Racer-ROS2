@@ -23,7 +23,7 @@
 		"terminal.integrated.profiles.linux": {
 			"bash": {
 				"path": "bash"
-			},
+			}
 		},
 		"terminal.integrated.defaultProfile.linux": "bash"
 	},
