@@ -13,16 +13,17 @@ from std_msgs.msg import String
 from typing import Final
 
 
-DATA_DIR: Final[str] = '~/data_capture'
+DATA_DIR: Final[str] = 'DATA_DIR'
 RESOURCES_PATH = Path(os.environ[DATA_DIR])
+DATA_FILE: Final[str] = 'DATA_FILE'
 
 
 class ImageAndControlReading(Node):
     def __init__(self):
         # Initialize Node
-        super().__init__("image_and_control_reading")
-        self._logger.info("started image and control reading")
-        bag_path = str(RESOURCES_PATH / 'image_control')
+        super().__init__("data_reader_node")
+        self._logger.info("started data reading")
+        bag_path = str(RESOURCES_PATH + "/" + DATA_FILE)
 
         self.reader = rosbag2_py.SequentialReader()
         storage_options = rosbag2_py._storage.StorageOptions(
