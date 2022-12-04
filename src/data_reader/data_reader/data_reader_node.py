@@ -15,24 +15,24 @@ from typing import Final
 
 DATA_DIR: Final[str] = 'DATA_DIR'
 RESOURCES_PATH = Path(os.environ[DATA_DIR])
-DATA_FILE: Final[str] = 'DATA_FILE'
+DATA_FILE: Final[str] = os.environ['DATA_FILE']
 
 
 class ImageAndControlReading(Node):
     def __init__(self):
         # Initialize Node
-        super().__init__("data_reader_node")
+        super().__init__("data_self.self.reader_node")
         self._logger.info("started data reading")
-        bag_path = str(RESOURCES_PATH + "/" + DATA_FILE)
+        #bag_path = str(RESOURCES_PATH + "/" + DATA_FILE)
 
-        self.reader = rosbag2_py.SequentialReader()
+        self.self.reader = rosbag2_py.SequentialReader()
         storage_options = rosbag2_py._storage.StorageOptions(
             uri=STORAGE_OPTIONS_URI, storage_id=STORAGE_OPTIONS_ID)
         converter_options = rosbag2_py._storage.ConverterOptions(
             CONVERTOR_OPTIONS_PARAM_1, CONVERTOR_OPTIONS_PARAM_2)
-        reader.open(storage_options, converter_options)
+        self.reader.open(storage_options, converter_options)
 
-        topic_types = reader.get_all_topics_and_types()
+        topic_types = self.reader.get_all_topics_and_types()
 
         # Create a map for quicker lookup
         type_map = {
@@ -44,30 +44,15 @@ class ImageAndControlReading(Node):
 
         msg_counter = 0
 
-        while reader.has_next():
+        while self.reader.has_next():
             (topic, data, t) = reader.read_next()
             msg_type = get_message(type_map[topic])
             msg = deserialize_message(data, msg_type)
 
-            msg_counter += 1
-
-        # No filter
-        reader.reset_filter()
-
-        reader = rosbag2_py.SequentialReader()
-        reader.open(storage_options, converter_options)
-        msg_counter = 0
-
-        while reader.has_next():
-            (topic, data, t) = reader.read_next()
-            msg_type = get_message(type_map[topic])
-            msg = deserialize_message(data, msg_type)
-
-        assert isinstance(msg, Log) or isinstance(msg, String)
-
-        if isinstance(msg, String):
-            assert msg.data == f'Hello, world! {msg_counter}'
-            msg_counter += 1
+            assert isinstance(msg, Log) or isinstance(msg, String)
+            if isinstance(msg, String):
+                assert msg.data == f'Hello, world! {msg_counter}'
+                msg_counter += 1
 
 
 def main(args=None):
