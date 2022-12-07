@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from data_capture.data_capture.data_constants import *
+from data_capture.data_constants import *
 
 import rosbag2_py
 import rclpy
@@ -21,11 +21,11 @@ DATA_FILE: Final[str] = os.environ['DATA_FILE']
 class ImageAndControlReading(Node):
     def __init__(self):
         # Initialize Node
-        super().__init__("data_self.self.reader_node")
+        super().__init__("data_reader_node")
         self._logger.info("started data reading")
         #bag_path = str(RESOURCES_PATH + "/" + DATA_FILE)
 
-        self.self.reader = rosbag2_py.SequentialReader()
+        self.reader = rosbag2_py.SequentialReader()
         storage_options = rosbag2_py._storage.StorageOptions(
             uri=STORAGE_OPTIONS_URI, storage_id=STORAGE_OPTIONS_ID)
         converter_options = rosbag2_py._storage.ConverterOptions(

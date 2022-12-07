@@ -19,7 +19,8 @@
       {
         "label": "clean",
         "type": "shell",
-        "command": "rm -r build install log"
+        "command": "rm -r build install log",
+        "problemMatcher": []
       }
     ]
   }
