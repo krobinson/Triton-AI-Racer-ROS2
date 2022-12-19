@@ -45,10 +45,11 @@ class ImageAndControlReading(Node):
         msg_counter = 0
 
         while self.reader.has_next():
-            (topic, data, t) = reader.read_next()
+            (topic, data, t) = self.reader.read_next()
             msg_type = get_message(type_map[topic])
             msg = deserialize_message(data, msg_type)
 
+            assert isinstance(msg, )
             assert isinstance(msg, Log) or isinstance(msg, String)
             if isinstance(msg, String):
                 assert msg.data == f'Hello, world! {msg_counter}'

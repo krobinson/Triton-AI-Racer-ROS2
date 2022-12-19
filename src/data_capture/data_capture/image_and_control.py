@@ -29,7 +29,7 @@ class ImageAndControlLogging(Node):
         self.writer.open(storage_options, converter_options)
 
         image_topic_info = rosbag2_py._storage.TopicMetadata(
-            name=IMAGE_TOPIC_MSG_TYPE,
+            name=IMAGE_TOPIC,
             type=IMAGE_TOPIC_MSG_TYPE,
             serialization_format='cdr')
         self.writer.create_topic(image_topic_info)
