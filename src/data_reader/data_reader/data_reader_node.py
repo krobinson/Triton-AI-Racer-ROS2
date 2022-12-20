@@ -23,7 +23,7 @@ class ImageAndControlReading(Node):
         # Initialize Node
         super().__init__("data_reader_node")
         self._logger.info("started data reading")
-        #bag_path = str(RESOURCES_PATH + "/" + DATA_FILE)
+        # bag_path = str(RESOURCES_PATH + "/" + DATA_FILE)
 
         self.reader = rosbag2_py.SequentialReader()
         storage_options = rosbag2_py._storage.StorageOptions(
@@ -39,7 +39,7 @@ class ImageAndControlReading(Node):
             topic_types[i].name: topic_types[i].type for i in range(len(topic_types))}
 
         # Set filter for topic of string type
-        #storage_filter = rosbag2_py.StorageFilter(topics=['/topic'])
+        # storage_filter = rosbag2_py.StorageFilter(topics=['/topic'])
         # reader.set_filter(storage_filter)
 
         msg_counter = 0
@@ -48,9 +48,7 @@ class ImageAndControlReading(Node):
             (topic, data, t) = self.reader.read_next()
             msg_type = get_message(type_map[topic])
             msg = deserialize_message(data, msg_type)
-
-            assert isinstance(msg, )
-            assert isinstance(msg, Log) or isinstance(msg, String)
+            self._logger.info(repr(type(msg)))
             if isinstance(msg, String):
                 assert msg.data == f'Hello, world! {msg_counter}'
                 msg_counter += 1
