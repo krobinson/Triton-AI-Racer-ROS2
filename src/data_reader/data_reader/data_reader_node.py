@@ -9,7 +9,8 @@ from rcl_interfaces.msg import Log
 from rclpy.serialization import deserialize_message
 import rosbag2_py
 from rosidl_runtime_py.utilities import get_message
-from std_msgs.msg import String
+from sensor_msgs.msg._image import Image
+from tai_interface.msg._vehicle_control import VehicleControl
 from typing import Final
 
 
@@ -47,11 +48,25 @@ class ImageAndControlReading(Node):
         while self.reader.has_next():
             (topic, data, t) = self.reader.read_next()
             msg_type = get_message(type_map[topic])
+            #self._logger.info("Msg type is " + str(repr(msg_type)))
             msg = deserialize_message(data, msg_type)
+            #self._logger.info("Msg is " + str(repr(msg)))
             self._logger.info(repr(type(msg)))
-            if isinstance(msg, String):
-                assert msg.data == f'Hello, world! {msg_counter}'
-                msg_counter += 1
+            self._logger.info(repr(msg.header))
+            if isinstance(msg, Image):
+                self._logger.info(repr(msg.height))
+                self._logger.info(repr(msg.width))
+                self._logger.info(repr(msg.encoding))
+                self._logger.info(repr(msg.is_bigendian))
+                self._logger.info(repr(msg.step))
+            elif isinstance(msg, VehicleControl):
+                self._logger.info(repr(msg.longitudinal_control_type))
+                self._logger.info(repr(msg.throttle))
+                self._logger.info(repr(msg.brake))
+                self._logger.info(repr(msg.target_velocity))
+                self._logger.info(repr(msg.lateral_control_type))
+                self._logger.info(repr(msg.steering_openloop))
+                self._logger.info(repr(msg.steering_rad))                
 
 
 def main(args=None):
