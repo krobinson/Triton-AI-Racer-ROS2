@@ -4,22 +4,22 @@ rosbag2_bagfile_information:
   relative_file_paths:
     - image_and_control_0.db3
   duration:
-    nanoseconds: 0
+    nanoseconds: 90657518591
   starting_time:
-    nanoseconds_since_epoch: 9223372036854775807
-  message_count: 0
+    nanoseconds_since_epoch: 1671453917557546000
+  message_count: 198
   topics_with_message_count:
     - topic_metadata:
         name: /vehicle_cmd
         type: tai_interface/msg/VehicleControl
         serialization_format: cdr
         offered_qos_profiles: ""
-      message_count: 0
+      message_count: 99
     - topic_metadata:
-        name: sensor_msgs/msg/Image
+        name: /cam/front
         type: sensor_msgs/msg/Image
         serialization_format: cdr
         offered_qos_profiles: ""
-      message_count: 0
+      message_count: 99
   compression_format: ""
   compression_mode: ""

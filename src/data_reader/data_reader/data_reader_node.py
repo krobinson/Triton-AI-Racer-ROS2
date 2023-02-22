@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from data_capture.data_constants import *
+from sensor_msgs.msg._image import Image as PillowImage
 
 import rosbag2_py
 import rclpy
@@ -9,9 +10,13 @@ from rcl_interfaces.msg import Log
 from rclpy.serialization import deserialize_message
 import rosbag2_py
 from rosidl_runtime_py.utilities import get_message
-from sensor_msgs.msg._image import Image
+from sensor_msgs.msg._image import Image as SensorImage
+from PIL import Image as PillowImage
 from tai_interface.msg._vehicle_control import VehicleControl
 from typing import Final
+import numpy as np
+import cv2
+from cv_bridge import CvBridge
 
 
 DATA_DIR: Final[str] = 'DATA_DIR'
@@ -45,20 +50,23 @@ class ImageAndControlReading(Node):
 
         msg_counter = 0
 
+        self.img_array = []
+
         while self.reader.has_next():
             (topic, data, t) = self.reader.read_next()
             msg_type = get_message(type_map[topic])
-            #self._logger.info("Msg type is " + str(repr(msg_type)))
+            # self._logger.info("Msg type is " + str(repr(msg_type)))
             msg = deserialize_message(data, msg_type)
-            #self._logger.info("Msg is " + str(repr(msg)))
+            # self._logger.info("Msg is " + str(repr(msg)))
             self._logger.info(repr(type(msg)))
             self._logger.info(repr(msg.header))
-            if isinstance(msg, Image):
+            if isinstance(msg, SensorImage):
                 self._logger.info(repr(msg.height))
                 self._logger.info(repr(msg.width))
                 self._logger.info(repr(msg.encoding))
                 self._logger.info(repr(msg.is_bigendian))
                 self._logger.info(repr(msg.step))
+                self.img_array = self.load_image(msg)
             elif isinstance(msg, VehicleControl):
                 self._logger.info(repr(msg.longitudinal_control_type))
                 self._logger.info(repr(msg.throttle))
@@ -66,7 +74,52 @@ class ImageAndControlReading(Node):
                 self._logger.info(repr(msg.target_velocity))
                 self._logger.info(repr(msg.lateral_control_type))
                 self._logger.info(repr(msg.steering_openloop))
-                self._logger.info(repr(msg.steering_rad))                
+                self._logger.info(repr(msg.steering_rad))
+
+    def load_image(self, img: SensorImage) -> np.ndarray:
+        """
+        :param string filename:     path to image file
+        :param cfg:                 donkey config
+        :return np.ndarray:         numpy uint8 image array
+        """
+        cv_image = self.load_pil_image(img)
+        self._logger.info("Type is " + repr(type(cv_image)))
+
+        if cv_image is None:
+            return None
+
+        img_arr = np.asarray(cv_image)
+
+        # If the PIL image is greyscale, the np array will have shape (H, W)
+        # Need to add a depth channel by expanding to (H, W, 1)
+        # if cv_image
+        #h, w = img_arr.shape[:2]
+       # img_arr = img_arr.reshape(h, w, 1)
+
+        self._logger.info("Type is " + repr(type(img_arr)))
+        return img_arr
+
+    def load_pil_image(self, img: SensorImage) -> np.ndarray:
+        """
+            Return a pillow image for manipulation. Also handles resizing.
+
+            Args:
+                filename (string): path to the image file
+                cfg (object): donkey configuration file
+
+            Returns: a np.ndarray image.
+        """
+
+        try:
+            bridge = CvBridge()
+            cv_image = bridge.imgmsg_to_cv2(
+                img, desired_encoding='passthrough')
+            return cv_image
+
+        except Exception as e:
+            self._logger.info("Failed to load image")
+            self._logger.info(e)
+            return None
 
 
 def main(args=None):

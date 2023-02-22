@@ -18,6 +18,7 @@ ENV DEBIAN_FRONTEND=dialog
 
 RUN pip install --upgrade numpy>=1.18.0
 RUN pip install opencv-python
+RUN pip install pillow
 RUN pip install scipy
 RUN pip install git+https://github.com/tawnkramer/gym-donkeycar
 
