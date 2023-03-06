@@ -20,6 +20,9 @@ RUN pip install --upgrade numpy>=1.18.0
 RUN pip install opencv-python
 RUN pip install pillow
 RUN pip install scipy
+RUN pip install fastai
+RUN pip install torch
+RUN pip install torchvision
 RUN pip install git+https://github.com/tawnkramer/gym-donkeycar
 
 # Set up auto-source of workspace for ros user
