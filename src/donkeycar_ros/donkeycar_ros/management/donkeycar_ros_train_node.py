@@ -15,40 +15,13 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='donkeycar_ros',
-            executable='donkeysim_client_node',
-            name='donkeysim_client_node',
+            executable='donkeycar_ros_train_node',
+            name='donkeycar_ros_train',
             output='screen',
             emulate_tty=True,
             parameters=[
                 config
             ]
-        ),
-
-        Node(
-            package='js_tai_interface',
-            executable='js_tai_interface_node',
-            name='js_tai_interface_node',
-            parameters=[
-                config
-            ]
-        ),
-
-        Node(
-            package='joy',
-            executable='joy_node',
-            name='joy_node',
-            parameters=[
-                config
-            ]
-        ),
-
-        Node(
-            package='waypoint_logger',
-            executable='log_waypoints',
-            name='log_node',
-            parameters=[
-                config
-            ]
-        ),
+        )
 
     ])
