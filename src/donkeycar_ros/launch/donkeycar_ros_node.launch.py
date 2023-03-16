@@ -12,11 +12,10 @@ def generate_launch_description():
     
     return LaunchDescription([
         Node(
-            package='donkeycar_ros',
-            namespace='donkeycar_ros',
-            executable='donkeycar_ros',
-            name='donkeycar_ros',
-            parameters=[donkeycar_ros_config]           
+            package='donkeycar_ros.management',
+            executable='donkeycar_ros_train_node',
+            name='donkeycar_ros_train_node',
+            parameters=[donkeycar_ros_train_config]           
         )
 
    ])
