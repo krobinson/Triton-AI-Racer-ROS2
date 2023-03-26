@@ -1,3 +1,0 @@
-/donkeycar_ros/log_node:
-  ros__parameters:
-    default_read_file_name: "image_and_control_0.db3"
