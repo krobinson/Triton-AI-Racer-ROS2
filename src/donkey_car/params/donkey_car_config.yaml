@@ -1,0 +1,15 @@
+/donkey_car/donkey_car_node:
+  ros__parameters:
+    createcar: CreateCar
+    findcar: FindCar
+    calibrate: CalibrateCar
+    tubclean: TubManager
+    tubplo: ShowPredictionPlots
+    tubhist: ShowHistogram
+    makemovie: MakeMovieShell
+    createjs: CreateJoystick
+    cnnactivations: ShowCnnActivations
+    update: UpdateCar
+    train: Train
+    models: ModelDatabase
+    ui: Gui
