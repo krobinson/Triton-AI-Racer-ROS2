@@ -18,7 +18,6 @@ import numpy as np
 import cv2
 from cv_bridge import CvBridge
 
-
 DATA_DIR: Final[str] = 'DATA_DIR'
 RESOURCES_PATH = Path(os.environ[DATA_DIR])
 DATA_FILE: Final[str] = os.environ['DATA_FILE']
@@ -26,9 +25,20 @@ DATA_FILE: Final[str] = os.environ['DATA_FILE']
 
 class DonkeyCarNode(Node):
     def __init__(self):
-        # Initialize Node
         super().__init__("donkey_car_node")
-        self._logger.info("started donkey car node")
+        self.declare_parameter('createcar')
+        self.declare_parameter('findcar')
+        self.declare_parameter('calibrate')
+        self.declare_parameter('tubclean')
+        self.declare_parameter('tubplo')
+        self.declare_parameter('tubhist')
+        self.declare_parameter('makemovie')
+        self.declare_parameter('createjs')
+        self.declare_parameter('cnnactivation')
+        self.declare_parameter('update')
+        self.declare_parameter('train')
+        self.declare_parameter('models')
+        self.declare_parameter('ui')
 
 
 def main(args=None):
