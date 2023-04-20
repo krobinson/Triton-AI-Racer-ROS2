@@ -24,7 +24,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'donkey_car_node = donkey_car.donkey_car_node:main'
+            'donkey_car_node = donkey_car.donkey_car_node:main',
+            'donkey_car_createcar_node = donkey_car.donkey_car_createcar_node:main'
         ],
     },
 )

@@ -18,27 +18,16 @@ import numpy as np
 import cv2
 from cv_bridge import CvBridge
 
-class DonkeyCarNode(Node):
+
+class DonkeyCarCreateCarNode(Node):
     def __init__(self):
-        super().__init__("donkey_car_node")
+        super().__init__("donkey_car_createcar_node")
         self.declare_parameter('createcar')
-        self.declare_parameter('findcar')
-        self.declare_parameter('calibrate')
-        self.declare_parameter('tubclean')
-        self.declare_parameter('tubplo')
-        self.declare_parameter('tubhist')
-        self.declare_parameter('makemovie')
-        self.declare_parameter('createjs')
-        self.declare_parameter('cnnactivation')
-        self.declare_parameter('update')
-        self.declare_parameter('train')
-        self.declare_parameter('models')
-        self.declare_parameter('ui')
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node = DonkeyCarNode()
+    node = DonkeyCarCreateCarNode()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
