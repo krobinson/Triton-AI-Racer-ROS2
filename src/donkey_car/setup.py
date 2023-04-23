@@ -25,7 +25,9 @@ setup(
     entry_points={
         'console_scripts': [
             'donkey_car_node = donkey_car.donkey_car_node:main',
-            'donkey_car_createcar_node = donkey_car.donkey_car_createcar_node:main'
+            'donkey_car_createcar_node = donkey_car.donkey_car_createcar_node:main',
+            'donkey_car_findcar_node = donkey_car.donkey_car_findcar_node:main',
+            'donkey_car_calibrate_node = donkey_car.donkey_car_calibrate_node:main'
         ],
     },
 )
