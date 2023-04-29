@@ -25,10 +25,20 @@ setup(
     entry_points={
         'console_scripts': [
             'donkey_car_node = donkey_car.donkey_car_node:main',
-            'donkey_car_createcar_node = donkey_car.donkey_car_createcar_node:main',
-            'donkey_car_findcar_node = donkey_car.donkey_car_findcar_node:main',
             'donkey_car_calibrate_node = donkey_car.donkey_car_calibrate_node:main',
-            'donkey_car_tubclean_node = donkey_car.donkey_car_tubclean_node:main'
+            'donkey_car_cnnactivation_node = donkey_car.donkey_car_cnnactivation_node:main',
+            'donkey_car_createcar_node = donkey_car.donkey_car_createcar_node:main',
+            'donkey_car_createjs_node = donkey_car.donkey_car_createjs_node:main',
+            'donkey_car_findcar_node = donkey_car.donkey_car_findcar_node:main',
+            'donkey_car_makemove_node = donkey_car.donkey_car_makemovie_node:main',
+            'donkey_car_models_node = donkey_car.donkey_car_models_node:main',
+            'donkey_car_train_node = donkey_car.donkey_car_train_node:main',
+            'donkey_car_tubclean_node = donkey_car.donkey_car_tubclean_node:main',
+            'donkey_car_tubhist_node = donkey_car.donkey_car_tubhist_node:main',
+            'donkey_car_tubplo_node = donkey_car.donkey_car_tubplo_node:main',
+            'donkey_car_ui_node = donkey_car.donkey_car_ui_node:main',
+            'donkey_car_update_node = donkey_car.donkey_car_update_node:main'
+
         ],
     },
 )
