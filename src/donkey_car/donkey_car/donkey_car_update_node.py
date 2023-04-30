@@ -19,15 +19,15 @@ import cv2
 from cv_bridge import CvBridge
 
 
-class DonkeyCarTubploNode(Node):
+class DonkeyCarUpdateNode(Node):
     def __init__(self):
-        super().__init__("donkey_car_tubplo_node")
-        self.declare_parameter('tubplo')
+        super().__init__("donkey_car_update_node")
+        self.declare_parameter('update')
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node = DonkeyCarTubploNode()
+    node = DonkeyCarUpdateNode()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
