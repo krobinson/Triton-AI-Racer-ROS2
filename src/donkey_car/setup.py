@@ -30,7 +30,7 @@ setup(
             'donkey_car_createcar_node = donkey_car.donkey_car_createcar_node:main',
             'donkey_car_createjs_node = donkey_car.donkey_car_createjs_node:main',
             'donkey_car_findcar_node = donkey_car.donkey_car_findcar_node:main',
-            'donkey_car_makemove_node = donkey_car.donkey_car_makemovie_node:main',
+            'donkey_car_makemovie_node = donkey_car.donkey_car_makemovie_node:main',
             'donkey_car_models_node = donkey_car.donkey_car_models_node:main',
             'donkey_car_train_node = donkey_car.donkey_car_train_node:main',
             'donkey_car_tubclean_node = donkey_car.donkey_car_tubclean_node:main',
