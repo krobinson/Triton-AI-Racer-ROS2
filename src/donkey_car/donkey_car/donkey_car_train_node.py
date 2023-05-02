@@ -23,6 +23,17 @@ class DonkeyCarTrainNode(Node):
     def __init__(self):
         super().__init__("donkey_car_train_node")
         self.declare_parameter('train')
+        HELP_FRAMEWORK = 'the AI framework to use (tensorflow|pytorch). ' \
+            'Defaults to config.DEFAULT_AI_FRAMEWORK'
+        self.declare_parameter('tub')
+        self.declare_parameter('model')
+        self.declare_parameter('type')
+        self.declare_parameter('config')
+        self.declare_parameter('myconfig')
+        self.declare_parameter('framework')
+        self.declare_parameter('checkpoint')
+        self.declare_parameter('transfer')
+        self.declare_parameter('comment')
 
 
 def main(args=None):
