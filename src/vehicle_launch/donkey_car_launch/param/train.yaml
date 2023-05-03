@@ -1,0 +1,11 @@
+/**:
+  ros__parameters:
+    tub: 'tub'
+    model: 'model'
+    type: 'type'
+    config: 'config'
+    myconfig: 'myconfig'
+    framework: 'pytorch'
+    checkpoint: '1'
+    transfer: 't'
+    comment: 'c'

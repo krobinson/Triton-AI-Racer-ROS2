@@ -22,7 +22,6 @@ from cv_bridge import CvBridge
 class DonkeyCarTrainNode(Node):
     def __init__(self):
         super().__init__("donkey_car_train_node")
-        self.declare_parameter('train')
         HELP_FRAMEWORK = 'the AI framework to use (tensorflow|pytorch). ' \
             'Defaults to config.DEFAULT_AI_FRAMEWORK'
         self.declare_parameter('tub')
