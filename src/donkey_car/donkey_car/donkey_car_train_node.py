@@ -47,7 +47,7 @@ class DonkeyCarTrainNode(Node):
         checkpoint = self.get_parameter('checkpoint')
         transfer_model = self.get_parameter('transfer')
         comment_dbase = self.get_parameter('comment')
-        self._logger.info(str(repr(tub_data)))
+        self._logger.info(tub_data.get_parameter_value())
 
 
 def main(args=None):
