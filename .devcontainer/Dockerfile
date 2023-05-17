@@ -1,14 +1,14 @@
-FROM althack/ros2:galactic-dev 
+FROM althack/ros2:foxy-dev 
 
 # ** [Optional] Uncomment this section to install additional packages. **
 #
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
-  && apt-get -y install --no-install-recommends ros-galactic-cv-bridge ros-galactic-ros2-socketcan \
-  ros-galactic-robot-localization ros-galactic-lgsvl-msgs libboost-all-dev libasio-dev \
-  python3-catkin-pkg ros-galactic-ackermann-msgs libboost-dev ros-galactic-udp-msgs \
-  ros-galactic-example-interfaces \
-  ros-galactic-joy \ 
+  && apt-get -y install --no-install-recommends ros-foxy-cv-bridge ros-foxy-ros2-socketcan \
+  ros-foxy-robot-localization ros-foxy-lgsvl-msgs libboost-all-dev libasio-dev \
+  python3-catkin-pkg ros-foxy-ackermann-msgs libboost-dev ros-foxy-udp-msgs \
+  ros-foxy-example-interfaces \
+  ros-foxy-joy \ 
   #
   # Clean up
   && apt-get autoremove -y \
@@ -24,6 +24,9 @@ RUN pip install fastai
 RUN pip install torch
 RUN pip install torchvision
 RUN pip install git+https://github.com/tawnkramer/gym-donkeycar
+# Donkeycar python
+RUN pip install progress
+RUN pip install prettytable
 
 # Set up auto-source of workspace for ros user
 ARG WORKSPACE

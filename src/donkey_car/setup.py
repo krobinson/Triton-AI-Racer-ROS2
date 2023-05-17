@@ -3,6 +3,7 @@ import os
 from glob import glob
 
 package_name = 'donkey_car'
+sub_modules = 'external/donkeycar'
 
 setup(
     name=package_name,

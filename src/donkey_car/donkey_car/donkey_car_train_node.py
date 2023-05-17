@@ -14,9 +14,8 @@ from sensor_msgs.msg._image import Image as SensorImage
 from PIL import Image as PillowImage
 from tai_interface.msg._vehicle_control import VehicleControl
 from typing import Final
-import numpy as np
-import cv2
 from cv_bridge import CvBridge
+from donkeycar.management.base import Train
 
 
 class DonkeyCarTrainNode(Node):
@@ -47,7 +46,7 @@ class DonkeyCarTrainNode(Node):
         checkpoint = self.get_parameter('checkpoint')
         transfer_model = self.get_parameter('transfer')
         comment_dbase = self.get_parameter('comment')
-        self._logger.info(tub_data.get_parameter_value())
+        self._logger.info(tub_data.get_parameter_value().string_value)
 
 
 def main(args=None):
