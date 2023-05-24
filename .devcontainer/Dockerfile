@@ -1,14 +1,14 @@
-FROM althack/ros2:foxy-dev 
+FROM althack/ros2:humble-dev 
 
 # ** [Optional] Uncomment this section to install additional packages. **
 #
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
-  && apt-get -y install --no-install-recommends ros-foxy-cv-bridge ros-foxy-ros2-socketcan \
-  ros-foxy-robot-localization ros-foxy-lgsvl-msgs libboost-all-dev libasio-dev \
-  python3-catkin-pkg ros-foxy-ackermann-msgs libboost-dev ros-foxy-udp-msgs \
-  ros-foxy-example-interfaces \
-  ros-foxy-joy \ 
+  && apt-get -y install --no-install-recommends ros-humble-cv-bridge ros-humble-ros2-socketcan \
+  ros-humble-robot-localization ros-humble-lgsvl-msgs libboost-all-dev libasio-dev \
+  python3-catkin-pkg ros-humble-ackermann-msgs libboost-dev ros-humble-udp-msgs \
+  ros-humble-example-interfaces \
+  ros-humble-joy \ 
   #
   # Clean up
   && apt-get autoremove -y \

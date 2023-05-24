@@ -21,7 +21,7 @@
 [submodule "src/external/example_interfaces"]
 	path = src/external/example_interfaces
 	url = git@github.com:ros2/example_interfaces.git
-	branch = foxy
+	branch = humble
 [submodule "src/external/donkeycar"]
 	path = src/external/donkeycar
 	url = git@github.com:autorope/donkeycar.git
