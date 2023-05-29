@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
   && apt-get -y install --no-install-recommends ros-humble-cv-bridge ros-humble-ros2-socketcan \
   ros-humble-robot-localization ros-humble-lgsvl-msgs libboost-all-dev libasio-dev \
+  python3-dev \
   python3-catkin-pkg ros-humble-ackermann-msgs libboost-dev ros-humble-udp-msgs \
   ros-humble-example-interfaces \
   ros-humble-joy \ 

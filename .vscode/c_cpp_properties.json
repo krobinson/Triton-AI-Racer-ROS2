@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "${default}",
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "includePath": [
+                "/opt/ros/humble/include/**",
+                "/workspaces/triton-ai-ros2/src/human_computer_interface/teleop/hri-raptor-joy-conversion/include/**",
+                "/workspaces/triton-ai-ros2/src/interface/js_tai_interface/include/**",
+                "/workspaces/triton-ai-ros2/src/interface/lgsvl_tai_interface/include/**",
+                "/workspaces/triton-ai-ros2/src/interface/raptor_tai_interface/include/**",
+                "/workspaces/triton-ai-ros2/tools/ros2_dev_tools/template_package/include/**",
+                "/workspaces/triton-ai-ros2/src/external/vesc/vesc_ackermann/include/**",
+                "/workspaces/triton-ai-ros2/src/external/human_computer_interface/teleop/include/**"
+                "/usr/include/**",
+                "${workspaceFolder}/build/ackermann_msgs/rosidl_generator_cpp"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
