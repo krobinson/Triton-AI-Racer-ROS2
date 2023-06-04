@@ -13,7 +13,7 @@
                 "/workspaces/triton-ai-ros2/src/interface/raptor_tai_interface/include/**",
                 "/workspaces/triton-ai-ros2/tools/ros2_dev_tools/template_package/include/**",
                 "/workspaces/triton-ai-ros2/src/external/vesc/vesc_ackermann/include/**",
-                "/workspaces/triton-ai-ros2/src/external/human_computer_interface/teleop/include/**"
+                "/workspaces/triton-ai-ros2/src/external/human_computer_interface/teleop/include/**",
                 "/usr/include/**",
                 "${workspaceFolder}/build/ackermann_msgs/rosidl_generator_cpp"
             ],
