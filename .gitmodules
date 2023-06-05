@@ -26,7 +26,3 @@
 	path = src/external/donkeycar
 	url = git@github.com:autorope/donkeycar.git
 	branch = main
-[submodule "raptor-dbw-ros2"]
-	path = raptor-dbw-ros2
-	url = git@github.com:krobinson/raptor-dbw-ros2.git
-	branch = humble
