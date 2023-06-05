@@ -1,7 +1,7 @@
 [submodule "src/external/raptor-dbw-ros2"]
 	path = src/external/raptor-dbw-ros2
-	url = git@github.com:NewEagleRaptor/raptor-dbw-ros2.git
-	branch = foxy
+	url = git@github.com:krobinson/raptor-dbw-ros2.git
+	branch = humble
 [submodule "src/external/vesc"]
 	path = src/external/vesc
 	url = git@github.com:f1tenth/vesc.git
@@ -26,3 +26,7 @@
 	path = src/external/donkeycar
 	url = git@github.com:autorope/donkeycar.git
 	branch = main
+[submodule "raptor-dbw-ros2"]
+	path = raptor-dbw-ros2
+	url = git@github.com:krobinson/raptor-dbw-ros2.git
+	branch = humble
