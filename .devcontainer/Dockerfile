@@ -28,6 +28,7 @@ RUN pip install git+https://github.com/tawnkramer/gym-donkeycar
 # Donkeycar python
 RUN pip install progress
 RUN pip install prettytable
+RUN pip install pyfiglet
 
 # Set up auto-source of workspace for ros user
 ARG WORKSPACE
