@@ -17,7 +17,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 ENV DEBIAN_FRONTEND=dialog
 
-RUN pip install --upgrade numpy>=1.18.0
+RUN pip install --upgrade numpy>=1.19.0
 RUN pip install opencv-python
 RUN pip install pillow
 RUN pip install scipy
@@ -28,7 +28,21 @@ RUN pip install git+https://github.com/tawnkramer/gym-donkeycar
 # Donkeycar python
 RUN pip install progress
 RUN pip install prettytable
+RUN pip install docopt
+RUN pip install tornado
+RUN pip install requests
+RUN pip install h5py
+RUN pip install PrettyTable
+RUN pip install paho-mqtt
+RUN pip install simple_pid
+RUN pip install progress
+RUN pip install typing_extensions
 RUN pip install pyfiglet
+RUN pip install psutil
+RUN pip install pynmea2
+RUN pip install pyserial
+RUN pip install utm
+RUN pip install setuptools
 
 # Set up auto-source of workspace for ros user
 ARG WORKSPACE
