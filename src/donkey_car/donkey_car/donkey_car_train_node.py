@@ -47,6 +47,14 @@ class DonkeyCarTrainNode(Node):
         transfer_model = self.get_parameter('transfer')
         comment_dbase = self.get_parameter('comment')
         self._logger.info(tub_data.get_parameter_value().string_value)
+        
+        if framework == 'pytorch':
+            from donkeycar.parts.pytorch.torch_train import train
+            train(cfg, args.tub, args.model, args.type,
+                  checkpoint_path=args.checkpoint)
+        else:
+            self._logger.error(f"Unrecognized framework: {framework}. Please specify "
+                         f"one of 'tensorflow' or 'pytorch'")
 
 
 def main(args=None):
