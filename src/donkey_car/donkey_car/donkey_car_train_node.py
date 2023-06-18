@@ -28,7 +28,7 @@ class DonkeyCarTrainNode(Node):
         self.declare_parameter('type', 'type_name')
         self.declare_parameter('config', 'config_name')
         self.declare_parameter('myconfig', 'myconfig_name')
-        self.declare_parameter('framework', 'framework_name')
+        self.declare_parameter('framework', 'pytorch')
         self.declare_parameter('checkpoint', 'checkpoint_name')
         self.declare_parameter('transfer', 'transfer_name')
         self.declare_parameter('comment', 'comment_name')
