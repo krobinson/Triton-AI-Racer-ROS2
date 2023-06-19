@@ -8,7 +8,7 @@
       "name": "ROS: Launch",
       "type": "ros",
       "request": "launch",
-      "target": "install/donkey_car_launch/share/donkey_car_launch/launch/train.launch.py"
+      "target": "${workspaceFolder}/install/donkey_car_launch/share/donkey_car_launch/launch/train.launch.py"
     },
     {
       "name": "Python: Current File",
