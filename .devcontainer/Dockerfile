@@ -43,6 +43,7 @@ RUN pip install pynmea2
 RUN pip install pyserial
 RUN pip install utm
 RUN pip install setuptools
+RUN pip install pytorch-lightning
 
 # Set up auto-source of workspace for ros user
 ARG WORKSPACE
