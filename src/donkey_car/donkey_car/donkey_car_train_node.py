@@ -30,6 +30,7 @@ class DonkeyCarConfigAdapter():
         self.IMAGE_H = image_h
         self.IMAGE_W = image_w
         self.VERBOSE_TRAIN = True
+        self.PRINT_MODEL_SUMMARY = True
 
 
 class DonkeyCarTrainNode(Node):
