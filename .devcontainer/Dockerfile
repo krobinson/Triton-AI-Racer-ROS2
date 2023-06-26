@@ -44,6 +44,8 @@ RUN pip install pyserial
 RUN pip install utm
 RUN pip install setuptools
 RUN pip install pytorch-lightning
+RUN pip install tensorboard
+RUN pip install tensorboardx
 
 # Set up auto-source of workspace for ros user
 ARG WORKSPACE
