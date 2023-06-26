@@ -1,8 +1,8 @@
 /**:
   ros__parameters:
-    tub: 'tub'
-    model: 'model'
-    type: 'linear'
+    tub: 'tub_path'
+    model: 'model_path'
+    type: 'resnet18'
     config: './config'
     myconfig: './myconfig'
     framework: 'pytorch'
