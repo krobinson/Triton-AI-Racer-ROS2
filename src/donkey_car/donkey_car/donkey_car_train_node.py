@@ -31,6 +31,7 @@ class DonkeyCarConfigAdapter():
         self.IMAGE_W = image_w
         self.VERBOSE_TRAIN = True
         self.PRINT_MODEL_SUMMARY = True
+        self.MAX_EPOCHS = 100
 
 
 class DonkeyCarTrainNode(Node):
