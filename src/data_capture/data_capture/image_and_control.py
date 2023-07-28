@@ -7,7 +7,21 @@ from rclpy.qos import qos_profile_sensor_data
 from message_filters import ApproximateTimeSynchronizer
 from message_filters import Subscriber
 
+import rosbag2_py
+from rcl_interfaces.msg import Log
+from rclpy.serialization import serialize_message
+from rosidl_runtime_py.utilities import get_message
+from sensor_msgs.msg._image import Image as SensorImage
+from PIL import Image as PillowImage
+from tai_interface.msg._vehicle_control import VehicleControl
 from typing import Final
+import numpy as np
+import cv2
+from cv_bridge import CvBridge
+
+from typing import Final
+from data_constants import STORAGE_OPTIONS_URI
+from data_constants import STORAGE_OPTIONS_ID
 
 IMAGE_TOPIC: Final[str] = '/cam/front'
 CONTROL_TOPIC: Final[str] = '/vehicle_cmd'
@@ -18,44 +32,44 @@ class ImageAndControlLogging(Node):
         self.declare_parameter('image_and_control_logging_hz', 20)
         self.present_image = None
         self.present_control = None
+
+        # initialize ros bag
+        self.initialize_file_writer()
         
+        # set up synchronizer
         self.image_sub = Subscriber(self, Image, IMAGE_TOPIC, qos_profile_sensor_data)
-        self.control_sub = Subscriber(self, VehicleControl, qos_profile_sensor_data)
+        self.control_sub = Subscriber(self, VehicleControl, CONTROL_TOPIC, qos_profile_sensor_data)
         self.tss = ApproximateTimeSynchronizer([self.image_sub, self.control_sub], queue_size=10, slop=0.5)
-        self.tss.registerCallback(self.print_topics)
-        # Pubs N' Subs
-        #self.odom_sub_ = self.create_subscription(
-        #    Odometry, "odom", self.odom_callback_, qos_profile_sensor_data)
-        #self.joy_sub_ = self.create_subscription(
-        #    Joy, "/joy", self.joy_callback_, 1)
+        self.tss.registerCallback(self.write_messages)
 
-        # ROS parameters
-        #self.default_file_name_ = self.get_parameter(
-        #    "default_save_file_name").get_parameter_value().string_value
-        #self.js_toggle_log_button_ = self.get_parameter(
-        #    "js_toggle_log_button").get_parameter_value().integer_value
-        #self.js_terminate_log_button = self.get_parameter(
-        #    "js_terminate_log_button").get_parameter_value().integer_value
-        #self.js_get_log_state_button = self.get_parameter(
-        #    "js_get_log_state_button").get_parameter_value().integer_value
-
-        # ROS services
-        #self.toggle_log_srv_ = self.create_service(ToggleWaypointLogging, "/waypoint/toggle_log",
-        #                                           self.toggle_log_callback_)
-        #self.terminate_log_srv_ = self.create_service(TerminateWaypointLogging, "/waypoint/terminate_log",
-        #                                              self.terminate_log_callback_)
-        #self.get_state_srv_ = self.create_service(GetWaypointLogState, "/waypoint/get_log_state",
-        #                                          self.get_state_callback_)
-
-        # Class members
-        #self.state_toggle_log_button_ = 0
-        #self.state_terminate_log_button_ = 0
-        #self.state_get_log_state_button_ = 0
-
-    def print_topics(self, image: Image, control: VehicleControl):
+    def write_messages(self, image: Image, control: VehicleControl):
         self.present_image = image
         self.present_control = control
         print("New images have been collected.")
+        self.writer.
+
+    def initialize_file_writer(self):
+        self.writer = rosbag2_py.SequentialWriter()
+        storage_options = rosbag2_py._storage.StorageOptions(uri=STORAGE_OPTIONS_URI, storage_id=STORAGE_OPTIONS_URI)
+        converter_options = rosbag2_py._storage.ConverterOptions('', '')
+        self.writer.open(storage_options, converter_options)
+
+
+
+    def topic_callback(self, msg):
+        """
+        This is writing messages to the sqlite file
+        """
+        if isinstance(msg, SensorImage):
+            self.writer.write(
+                IMAGE_TOPIC,
+                serialize_message(msg),
+                self.get_clock().now().nanoseconds)
+        elif isinstance(msg, VehicleControl):
+            self.writer.write(
+                CONTROL_TOPIC,
+                serialize_message(msg),
+                self.get_clock().now().nanoseconds)
 
 
 
