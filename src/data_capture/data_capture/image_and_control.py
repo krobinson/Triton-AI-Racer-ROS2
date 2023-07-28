@@ -40,13 +40,8 @@ class ImageAndControlLogging(Node):
         self.image_sub = Subscriber(self, Image, IMAGE_TOPIC, qos_profile_sensor_data)
         self.control_sub = Subscriber(self, VehicleControl, CONTROL_TOPIC, qos_profile_sensor_data)
         self.tss = ApproximateTimeSynchronizer([self.image_sub, self.control_sub], queue_size=10, slop=0.5)
-        self.tss.registerCallback(self.write_messages)
-
-    def write_messages(self, image: Image, control: VehicleControl):
-        self.present_image = image
-        self.present_control = control
-        print("New images have been collected.")
-        self.writer.
+        self.tss.registerCallback(self.topic_callback)
+        
 
     def initialize_file_writer(self):
         self.writer = rosbag2_py.SequentialWriter()
