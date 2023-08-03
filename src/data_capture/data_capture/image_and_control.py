@@ -20,8 +20,9 @@ import cv2
 from cv_bridge import CvBridge
 
 from typing import Final
-from data_constants import STORAGE_OPTIONS_URI
-from data_constants import STORAGE_OPTIONS_ID
+from data_capture.data_constants import STORAGE_OPTIONS_URI
+from data_capture.data_constants import STORAGE_OPTIONS_ID
+from data_capture.data_constants import STORAGE_OPTIONS_ID_MCAP
 
 IMAGE_TOPIC: Final[str] = '/cam/front'
 CONTROL_TOPIC: Final[str] = '/vehicle_cmd'
@@ -44,8 +45,9 @@ class ImageAndControlLogging(Node):
         
 
     def initialize_file_writer(self):
+        # Todo need to add storage options URI which uses year month day hour minutes seconds.
         self.writer = rosbag2_py.SequentialWriter()
-        storage_options = rosbag2_py._storage.StorageOptions(uri=STORAGE_OPTIONS_URI, storage_id=STORAGE_OPTIONS_URI)
+        storage_options = rosbag2_py._storage.StorageOptions(uri=STORAGE_OPTIONS_URI, storage_id=STORAGE_OPTIONS_ID_MCAP)
         converter_options = rosbag2_py._storage.ConverterOptions('', '')
         self.writer.open(storage_options, converter_options)
 
