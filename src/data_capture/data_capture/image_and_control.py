@@ -18,6 +18,7 @@ from typing import Final
 import numpy as np
 import cv2
 from cv_bridge import CvBridge
+from datetime import datetime
 
 from typing import Final
 from data_capture.data_constants import STORAGE_OPTIONS_URI
@@ -38,8 +39,8 @@ class ImageAndControlLogging(Node):
         self.initialize_file_writer()
         
         # set up synchronizer
-        self.image_sub = Subscriber(self, Image, IMAGE_TOPIC, qos_profile_sensor_data)
-        self.control_sub = Subscriber(self, VehicleControl, CONTROL_TOPIC, qos_profile_sensor_data)
+        self.image_sub = Subscriber(self, Image, IMAGE_TOPIC)#, qos_profile_sensor_data)
+        self.control_sub = Subscriber(self, VehicleControl, CONTROL_TOPIC)#, qos_profile_sensor_data)
         self.tss = ApproximateTimeSynchronizer([self.image_sub, self.control_sub], queue_size=10, slop=0.5)
         self.tss.registerCallback(self.topic_callback)
         
@@ -47,11 +48,12 @@ class ImageAndControlLogging(Node):
     def initialize_file_writer(self):
         # Todo need to add storage options URI which uses year month day hour minutes seconds.
         self.writer = rosbag2_py.SequentialWriter()
-        storage_options = rosbag2_py._storage.StorageOptions(uri=STORAGE_OPTIONS_URI, storage_id=STORAGE_OPTIONS_ID_MCAP)
+        now = datetime.now()
+        uri_str = STORAGE_OPTIONS_URI + '-' + now.isoformat("-","minutes").replace(':', "-")
+        storage_options = rosbag2_py._storage.StorageOptions(uri=uri_str, storage_id=STORAGE_OPTIONS_ID)
         converter_options = rosbag2_py._storage.ConverterOptions('', '')
         self.writer.open(storage_options, converter_options)
-
-
+        
 
     def topic_callback(self, msg):
         """
