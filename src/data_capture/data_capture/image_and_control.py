@@ -39,8 +39,8 @@ class ImageAndControlLogging(Node):
         self.initialize_file_writer()
         
         # set up synchronizer
-        self.image_sub = Subscriber(self, Image, IMAGE_TOPIC)#, qos_profile_sensor_data)
-        self.control_sub = Subscriber(self, VehicleControl, CONTROL_TOPIC)#, qos_profile_sensor_data)
+        self.image_sub = Subscriber(self, Image, IMAGE_TOPIC, qos_profile=qos_profile_sensor_data)
+        self.control_sub = Subscriber(self, VehicleControl, CONTROL_TOPIC, qos_profile=qos_profile_sensor_data)
         self.tss = ApproximateTimeSynchronizer([self.image_sub, self.control_sub], queue_size=10, slop=0.5)
         self.tss.registerCallback(self.topic_callback)
         
