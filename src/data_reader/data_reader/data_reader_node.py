@@ -17,6 +17,7 @@ from typing import Final
 import numpy as np
 import cv2
 from cv_bridge import CvBridge
+from data_reader.data_reader import train
 
 
 DATA_DIR: Final[str] = 'DATA_DIR'
@@ -75,6 +76,7 @@ class ImageAndControlReading(Node):
                 self._logger.info(repr(msg.lateral_control_type))
                 self._logger.info(repr(msg.steering_openloop))
                 self._logger.info(repr(msg.steering_rad))
+            train()
 
     def load_image(self, img: SensorImage) -> np.ndarray:
         """
@@ -82,24 +84,24 @@ class ImageAndControlReading(Node):
         :param cfg:                 donkey config
         :return np.ndarray:         numpy uint8 image array
         """
-        cv_image = self.load_pil_image(img)
-        self._logger.info("Type is " + repr(type(cv_image)))
+        pil_image = self.load_pil_image(img)
+        self._logger.info("Type is " + repr(type(pil_image)))
 
-        if cv_image is None:
+        if pil_image is None:
             return None
 
-        img_arr = np.asarray(cv_image)
+        img_arr = np.asarray(pil_image)
 
         # If the PIL image is greyscale, the np array will have shape (H, W)
         # Need to add a depth channel by expanding to (H, W, 1)
         # if cv_image
         #h, w = img_arr.shape[:2]
-       # img_arr = img_arr.reshape(h, w, 1)
+        # img_arr = img_arr.reshape(h, w, 1)
 
         self._logger.info("Type is " + repr(type(img_arr)))
         return img_arr
 
-    def load_pil_image(self, img: SensorImage) -> np.ndarray:
+    def load_pil_image(self, img: SensorImage) -> PillowImage:
         """
             Return a pillow image for manipulation. Also handles resizing.
 
@@ -114,7 +116,18 @@ class ImageAndControlReading(Node):
             bridge = CvBridge()
             cv_image = bridge.imgmsg_to_cv2(
                 img, desired_encoding='passthrough')
-            return cv_image
+    
+            ######
+            # convert from openCV2 to PIL. Notice the COLOR_BGR2RGB which means that 
+            # the color is converted from BGR to RGB
+            color_converted = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
+            pil_image=PillowImage.fromarray(color_converted)
+            if pil_image.height != cfg.IMAGE_H or pil_image.width != cfg.IMAGE_W:
+                pil_image = pil_image.resize((cfg.IMAGE_W, cfg.IMAGE_H))
+
+            if cfg.IMAGE_DEPTH == 1:
+                pil_image = pil_image.convert('L')
+            return pil_image
 
         except Exception as e:
             self._logger.info("Failed to load image")
